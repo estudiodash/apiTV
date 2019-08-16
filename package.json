@@ -1,11 +1,8 @@
 {
-  "name": "ffff",
+  "name": "ApiTV",
   "version": "0.1.0",
   "description": "App para buscar tu shows",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/estudiodash/apiTV.git"
@@ -17,12 +14,23 @@
   },
   "homepage": "https://github.com/estudiodash/apiTV#readme",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "page": "^1.11.4",
+    "qs": "^6.7.0",
+    "serve": "^11.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^10.0.0",
     "browserify": "^16.3.0"
   },
   "scripts": {
-    "build-js": "browserify js/index.js > js/app.js "
+    "public": "mkdir -p public && mkdir -p public/css && mkdir -p public/js",
+    "build-js": "NODE_PATH=. browserify -t [ babelify --presets [ @babel/preset-env ] ]  src/index.js > public/js/app.js ",
+    "copy-files": "cp src/css/app.css public/css/app.css &&  cp src/index.html public/index.html",
+    "build": "npm run public && npm run build-js && npm run copy-files",
+    "serve": "serve public"
   }
 }
